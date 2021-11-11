@@ -23,71 +23,86 @@ struct ContentView: View {
 
     var body: some View {
         // whole VStack
-        VStack {
-            ZStack {
-                VerticalLine().stroke(lineWidth: 3).frame(width: 3)
-//
-                // header
-                VStack {
-                    HStack(spacing: 70) {
-                        Text("لهم").font(.largeTitle).padding()
-                        Text("لنا").font(.largeTitle).padding()
-                    }
-                        .padding()
-                    HorizontalLine().stroke(lineWidth: 3).frame(height: 3)
-//
-//                    // VStack for results
-                    ScrollView {
-                        VStack(spacing: 10) {
-                            ForEach(vm.firstTeamScores.indices, id: \.self) { i in
-                                HStack(spacing: 100) {
-                                    Text("\(vm.secondTeamScores[i].value)").font(.headline)
-                                    Text("\(vm.firstTeamScores[i].value)").font(.headline)
-                                }
-                            }
-
+        NavigationView {
+            VStack {
+                ZStack {
+                    VerticalLine().stroke(lineWidth: 3).frame(width: 3)
+                    //
+                    // header
+                    VStack {
+                        HStack(spacing: 70) {
+                            Text("لهم").font(.largeTitle).padding()
+                            Text("لنا").font(.largeTitle).padding()
                         }
-                            .padding(.vertical)
-                    }
-                    HStack(spacing: 140) {
-                        Text("\(vm.secondTeamScore)")
-                            .font(.title)
-                            .underline()
                             .padding()
-                            .background(vm.winningTeam == .second ? Color.green : Color.clear)
-                        .cornerRadius(10)
+                        HorizontalLine().stroke(lineWidth: 3).frame(height: 3)
+                        //
+                        //                    // VStack for results
+                        ScrollView {
+                            VStack(spacing: 10) {
+                                ForEach(vm.firstTeamScores.indices, id: \.self) { i in
+                                    HStack(spacing: 100) {
+                                        Text("\(vm.secondTeamScores[i])").font(.headline)
+                                        Text("\(vm.firstTeamScores[i])").font(.headline)
+                                    }
+                                }
 
-                        Text("\(vm.firstTeamScore)")
-                            .font(.title)
-                            .underline()
+                            }
+                                .padding(.vertical)
+                        }
+                        HStack(spacing: 140) {
+                            Text("\(vm.secondTeamScore)")
+                                .font(.title)
+                                .underline()
+                                .padding()
+                                .background(vm.winningTeam == .second ? Color.green : Color.clear)
+                                .cornerRadius(10)
+
+                            Text("\(vm.firstTeamScore)")
+                                .font(.title)
+                                .underline()
+                                .padding()
+                                .background(vm.winningTeam == .first ? Color.green : Color.clear)
+                                .cornerRadius(10)
+                        }
                             .padding()
-                            .background(vm.winningTeam == .first ? Color.green : Color.clear)
-                            .cornerRadius(10)
+                        Spacer()
                     }
-                        .padding()
-                    Spacer()
+
                 }
-
-            }
-                .onTapGesture {
-                dismissKeyboard()
-            }
-            HStack(spacing: 20) {
-                RegisterTextField(text: $themScore, textInTextField: "لهم")
-
-                Button {
-                    addScore()
-                } label: {
-                    Text(buttonText)
-                        .padding()
-                        .frame(width: 120, height: 50)
-                        .background(Color.red.cornerRadius(10))
-                        .foregroundColor(.white)
+                    .onTapGesture {
+                    dismissKeyboard()
                 }
+                HStack(spacing: 20) {
+                    RegisterTextField(text: $themScore, textInTextField: "لهم")
 
-                RegisterTextField(text: $usScore, textInTextField: "لنا")
+                    Button {
+                        addScore()
+                    } label: {
+                        Text(buttonText)
+                            .padding()
+                            .frame(width: 120, height: 50)
+                            .background(Color.red.cornerRadius(10))
+                            .foregroundColor(.white)
+                    }
+
+                    RegisterTextField(text: $usScore, textInTextField: "لنا")
+                }
+                    .padding(.horizontal)
             }
-                .padding(.horizontal)
+                .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+
+                    Image(systemName: "arrow.uturn.backward.square.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.red)
+                        .frame(alignment: .leading)
+                        .onTapGesture {
+                            vm.undo()
+                        }
+                }
+            }
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 

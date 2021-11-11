@@ -16,7 +16,7 @@ struct Game {
     let WINNING_SCORE = 152
     var winningTeam: TeamNumber?
 
-
+    
     mutating func add(_ points: Int, to teamNumber: TeamNumber) {
         switch teamNumber {
         case .first:
@@ -31,6 +31,16 @@ struct Game {
 
         } else if secondTeam.score >= WINNING_SCORE {
             winningTeam = secondTeam.teamNumber
+        }
+    }
+    
+    // delete
+    mutating func deduct(_ points: Int, to teamNumber: TeamNumber) {
+        switch teamNumber {
+        case .first:
+            firstTeam.score -= points
+        case .second:
+            secondTeam.score -= points
         }
     }
 
