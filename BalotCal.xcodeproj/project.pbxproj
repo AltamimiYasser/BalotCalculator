@@ -52,6 +52,7 @@
 		3BF629E12738A9EB0059CE84 = {
 			isa = PBXGroup;
 			children = (
+				3B70859A273CF03200ED44FF /* README.md */,
 				3BF629EC2738A9EB0059CE84 /* BalotCal */,
 				3BF629EB2738A9EB0059CE84 /* Products */,
 			);
@@ -75,7 +76,6 @@
 				3BA35C02273C964600396D03 /* Lines.swift */,
 				3BF629F12738A9EC0059CE84 /* Assets.xcassets */,
 				3BF629F32738A9EC0059CE84 /* Preview Content */,
-				3B70859A273CF03200ED44FF /* README.md */,
 			);
 			path = BalotCal;
 			sourceTree = "<group>";
